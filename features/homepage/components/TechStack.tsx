@@ -1,7 +1,5 @@
 'use client';
 
-import type { CSSProperties } from 'react';
-
 import Image from 'next/image';
 import { useEffect, useMemo, useRef } from 'react';
 
@@ -20,21 +18,7 @@ function useTiles(): [Tile[], Tile[]] {
 
 function Card({ tile }: { tile: Tile }) {
   return (
-    <div
-      style={{
-        width: '128px',
-        height: '128px',
-        borderRadius: '22px',
-        background: 'var(--card)',
-        border: '1px solid var(--line)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '13px',
-        flexShrink: 0,
-      }}
-    >
+    <div className="flex h-32 w-32 shrink-0 flex-col items-center justify-center gap-[13px] rounded-[22px] border border-[var(--line)] bg-[var(--card)]">
       {tile.icon ? (
         <Image
           src={`https://cdn.simpleicons.org/${tile.icon}`}
@@ -43,25 +27,12 @@ function Card({ tile }: { tile: Tile }) {
           height={44}
           loading="lazy"
           unoptimized
-          style={{ objectFit: 'contain' }}
+          className="object-contain"
         />
       ) : (
-        <div
-          style={{
-            width: '44px',
-            height: '44px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '30px',
-          }}
-        >
-          {tile.emoji}
-        </div>
+        <div className="flex h-11 w-11 items-center justify-center text-3xl">{tile.emoji}</div>
       )}
-      <span className="mono" style={{ fontSize: '12px', color: 'var(--text-soft)' }}>
-        {tile.name}
-      </span>
+      <span className="mono text-xs text-[var(--text-soft)]">{tile.name}</span>
     </div>
   );
 }
@@ -121,71 +92,27 @@ export default function TechStack() {
     };
   }, []);
 
-  const maskStyle: CSSProperties = {
-    position: 'relative',
-    overflow: 'hidden',
-    WebkitMaskImage: 'linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)',
-    maskImage: 'linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)',
-  };
-
-  const trackStyle: CSSProperties = {
-    display: 'flex',
-    gap: '16px',
-    width: 'max-content',
-    willChange: 'transform',
-  };
-
   return (
     <section id="stack">
-      <div ref={pinRef} style={{ position: 'relative', height: '140vh' }}>
-        <div
-          style={{
-            position: 'sticky',
-            top: 0,
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '24px',
-          }}
-        >
-          <div
-            className="mono"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              fontSize: '13px',
-              letterSpacing: '.14em',
-              textTransform: 'uppercase',
-              color: 'var(--text-faint)',
-            }}
-          >
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)' }} />
+      <div ref={pinRef} className="relative h-[140vh]">
+        <div className="sticky top-0 flex h-screen flex-col justify-center gap-6">
+          <div className="mono inline-flex items-center gap-2.5 text-[13px] uppercase tracking-[0.14em] text-[var(--text-faint)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
             Tech Stack
           </div>
-          <h2
-            style={{
-              margin: 0,
-              fontSize: '40px',
-              lineHeight: 1.1,
-              fontWeight: 700,
-              letterSpacing: '-.03em',
-              maxWidth: '640px',
-            }}
-          >
-            Tools I reach for, <span style={{ color: 'var(--accent)' }}>front to back.</span>
+          <h2 className="m-0 max-w-[640px] text-[40px] font-bold leading-[1.1] tracking-[-0.03em]">
+            Tools I reach for, <span className="text-[var(--accent)]">front to back.</span>
           </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginTop: '10px' }}>
-            <div style={maskStyle}>
-              <div ref={trackARef} style={trackStyle}>
+          <div className="mt-2.5 flex flex-col gap-[18px]">
+            <div className="relative overflow-hidden [-webkit-mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)] [mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)]">
+              <div ref={trackARef} className="flex w-max gap-4 will-change-transform">
                 {rowA.map((t) => (
                   <Card key={t.name} tile={t} />
                 ))}
               </div>
             </div>
-            <div style={maskStyle}>
-              <div ref={trackBRef} style={trackStyle}>
+            <div className="relative overflow-hidden [-webkit-mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)] [mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)]">
+              <div ref={trackBRef} className="flex w-max gap-4 will-change-transform">
                 {rowB.map((t) => (
                   <Card key={t.name} tile={t} />
                 ))}

@@ -1,7 +1,5 @@
 'use client';
 
-import type { CSSProperties } from 'react';
-
 import { useEffect, useState } from 'react';
 
 import { GitHubIcon } from '@/components/icon/GitHubIcon';
@@ -22,17 +20,8 @@ function formatClock(): string {
   }
 }
 
-const dotStyle: CSSProperties = {
-  width: '40px',
-  height: '40px',
-  borderRadius: '50%',
-  border: '1px solid var(--line-soft)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: 'var(--text-soft)',
-  transition: 'all .2s',
-};
+const socialDotClassName =
+  'flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line-soft)] text-[var(--text-soft)] transition-all';
 
 export default function ProfileCard() {
   const [clock, setClock] = useState(formatClock());
@@ -49,130 +38,34 @@ export default function ProfileCard() {
     .join('');
 
   return (
-    <aside
-      style={{
-        position: 'sticky',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        alignSelf: 'start',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-      }}
-    >
-      <div
-        style={{
-          background: 'rgba(16, 16, 19, 0.72)',
-          backdropFilter: 'blur(14px)',
-          border: '1px solid var(--line)',
-          borderRadius: '24px',
-          padding: '22px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '18px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span
-            style={{
-              width: '38px',
-              height: '38px',
-              border: '1px solid var(--accent)',
-              color: 'var(--accent)',
-              borderRadius: '10px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 700,
-              flexShrink: 0,
-            }}
-          >
+    <aside className="z-10 flex flex-col gap-5 max-[1024px]:w-full min-[1025px]:fixed min-[1025px]:left-[max(56px,calc((100vw-1280px)/2+56px))] min-[1025px]:top-1/2 min-[1025px]:w-[360px] min-[1025px]:-translate-y-1/2">
+      <div className="flex flex-col gap-[18px] rounded-3xl border border-[var(--line)] bg-[rgba(16,16,19,0.72)] p-[22px] backdrop-blur-[14px]">
+        <div className="flex items-center gap-3">
+          <span className="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px] border border-[var(--accent)] font-bold text-[var(--accent)]">
             ◆
           </span>
-          <span
-            className="mono"
-            style={{
-              flex: 1,
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '9px',
-              border: '1px solid var(--line-soft)',
-              borderRadius: '999px',
-              padding: '9px 14px',
-              fontSize: '12px',
-              color: 'var(--text-soft)',
-            }}
-          >
-            <span
-              style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                background: '#4ade80',
-                animation: 'om-pulse 2s infinite',
-              }}
-            />
+          <span className="mono flex flex-1 items-center justify-center gap-[9px] rounded-full border border-[var(--line-soft)] px-3.5 py-[9px] text-xs text-[var(--text-soft)]">
+            <span className="h-2 w-2 rounded-full bg-[#4ade80] [animation:om-pulse_2s_infinite]" />
             {contact.availability}
           </span>
         </div>
 
-        <div
-          style={{
-            position: 'relative',
-            aspectRatio: '1/1',
-            borderRadius: '18px',
-            overflow: 'hidden',
-            border: '1px solid var(--line)',
-            background: 'repeating-linear-gradient(45deg, #1b1b20, #1b1b20 8px, #151519 8px, #151519 16px)',
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'center',
-          }}
-        >
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'radial-gradient(70% 60% at 50% 25%, rgba(245, 165, 36, 0.32), transparent 68%)',
-            }}
-          />
-          <div
-            className="mono"
-            style={{ position: 'absolute', top: '12px', left: '14px', fontSize: '10px', color: 'var(--text-dim)' }}
-          >
-            portrait.jpg
-          </div>
-          <div
-            style={{
-              position: 'relative',
-              fontStyle: 'italic',
-              fontSize: '34px',
-              fontWeight: 500,
-              color: '#f4f4f5',
-              paddingBottom: '22px',
-              textShadow: '0 2px 14px rgba(0, 0, 0, 0.65)',
-            }}
-          >
+        <div className="relative flex aspect-square items-end justify-center overflow-hidden rounded-[18px] border border-[var(--line)] bg-[repeating-linear-gradient(45deg,#1b1b20,#1b1b20_8px,#151519_8px,#151519_16px)]">
+          <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_25%,rgba(245,165,36,0.32),transparent_68%)]" />
+          <div className="mono absolute left-3.5 top-3 text-[10px] text-[var(--text-dim)]">portrait.jpg</div>
+          <div className="relative pb-[22px] text-[34px] font-medium italic text-[#f4f4f5] [text-shadow:0_2px_14px_rgba(0,0,0,0.65)]">
             {initials}
           </div>
         </div>
 
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '21px', fontWeight: 700, letterSpacing: '-.01em' }}>{contact.name}</div>
-          <div className="mono" style={{ fontSize: '12px', color: 'var(--accent)', marginTop: '4px' }}>
-            {contact.role}
-          </div>
+        <div className="text-center">
+          <div className="text-[21px] font-bold tracking-[-0.01em]">{contact.name}</div>
+          <div className="mono mt-1 text-xs text-[var(--accent)]">{contact.role}</div>
         </div>
 
-        <div
-          className="mono"
-          style={{ textAlign: 'center', fontSize: '12px', color: 'var(--text-dim)', lineHeight: 1.7 }}
-        >
-          Based in {contact.location}
-        </div>
+        <div className="mono text-center text-xs leading-[1.7] text-[var(--text-dim)]">Based in {contact.location}</div>
 
-        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+        <div className="flex justify-center gap-2.5">
           <a
             data-social-dot
             href={contact.github}
@@ -180,7 +73,7 @@ export default function ProfileCard() {
             rel="noopener noreferrer"
             aria-label="GitHub"
             title="GitHub"
-            style={dotStyle}
+            className={socialDotClassName}
           >
             <GitHubIcon />
           </a>
@@ -191,11 +84,17 @@ export default function ProfileCard() {
             rel="noopener noreferrer"
             aria-label="LinkedIn"
             title="LinkedIn"
-            style={dotStyle}
+            className={socialDotClassName}
           >
             <LinkedInIcon />
           </a>
-          <a data-social-dot href={`mailto:${contact.email}`} aria-label="Email" title="Email" style={dotStyle}>
+          <a
+            data-social-dot
+            href={`mailto:${contact.email}`}
+            aria-label="Email"
+            title="Email"
+            className={socialDotClassName}
+          >
             <MailIcon />
           </a>
           <a
@@ -203,7 +102,7 @@ export default function ProfileCard() {
             href={`tel:${contact.phone.replace(/\s+/g, '')}`}
             aria-label="Phone"
             title="Phone"
-            style={dotStyle}
+            className={socialDotClassName}
           >
             <PhoneIcon />
           </a>
@@ -211,37 +110,14 @@ export default function ProfileCard() {
 
         <a
           href={`mailto:${contact.email}`}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            background: 'var(--accent)',
-            color: 'var(--bg)',
-            fontWeight: 600,
-            padding: '8px 8px 8px 20px',
-            borderRadius: '999px',
-            fontSize: '15px',
-          }}
+          className="flex items-center justify-between rounded-full bg-[var(--accent)] py-2 pl-5 pr-2 text-[15px] font-semibold text-[var(--bg)]"
         >
           Get in touch{' '}
-          <span
-            style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              background: 'var(--bg)',
-              color: '#f4f4f5',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            ↗
-          </span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--bg)] text-[#f4f4f5]">↗</span>
         </a>
       </div>
 
-      <div className="mono" style={{ fontSize: '12px', color: 'var(--text-dim)', lineHeight: 1.9, padding: '0 6px' }}>
+      <div className="mono px-1.5 text-xs leading-[1.9] text-[var(--text-dim)]">
         {contact.location} · {clock}
       </div>
     </aside>

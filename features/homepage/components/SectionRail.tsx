@@ -34,16 +34,7 @@ export default function SectionRail() {
     <nav
       data-rail
       aria-label="Section navigation"
-      style={{
-        position: 'fixed',
-        right: '22px',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        zIndex: 50,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '12px',
-      }}
+      className="fixed right-[22px] top-1/2 z-50 flex -translate-y-1/2 flex-col gap-3"
     >
       {items.map((it) => {
         const on = active === it.id;
@@ -55,48 +46,21 @@ export default function SectionRail() {
             data-rail-item
             aria-label={it.label}
             aria-current={on ? 'true' : undefined}
-            style={{
-              position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              textDecoration: 'none',
-            }}
+            className="relative flex items-center justify-end no-underline"
           >
             <span
               data-rail-label
-              className="mono"
-              style={{
-                position: 'absolute',
-                right: '56px',
-                whiteSpace: 'nowrap',
-                background: 'rgba(16, 16, 19, 0.92)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid var(--line-soft)',
-                borderRadius: '9px',
-                padding: '7px 12px',
-                fontSize: '12px',
-                color: 'var(--text)',
-              }}
+              className="mono absolute right-14 whitespace-nowrap rounded-[9px] border border-[var(--line-soft)] bg-[rgba(16,16,19,0.92)] px-3 py-[7px] text-xs text-[var(--text)] backdrop-blur"
             >
               {it.label}
             </span>
             <span
               data-rail-btn
-              style={{
-                width: '46px',
-                height: '46px',
-                borderRadius: '50%',
-                border: `1px solid ${on ? 'var(--accent)' : 'var(--line-soft)'}`,
-                background: on ? 'var(--accent)' : 'rgba(16, 16, 19, 0.7)',
-                backdropFilter: 'blur(8px)',
-                color: on ? 'var(--bg)' : 'var(--text-soft)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '16px',
-                transition: 'all .2s',
-              }}
+              className={`flex h-[46px] w-[46px] items-center justify-center rounded-full border text-base backdrop-blur transition-all ${
+                on
+                  ? 'border-[var(--accent)] bg-[var(--accent)] text-[var(--bg)]'
+                  : 'border-[var(--line-soft)] bg-[rgba(16,16,19,0.7)] text-[var(--text-soft)]'
+              }`}
             >
               {it.glyph}
             </span>
