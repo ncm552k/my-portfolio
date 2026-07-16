@@ -146,15 +146,15 @@ textarea::placeholder {
     gap: 40px;
     padding: 32px 24px 48px;
   }
-
-  .page-grid aside {
-    position: static !important;
-  }
 }
 
 @media (max-width: 640px) {
   [data-rail] {
     display: none !important;
+  }
+
+  .page-grid aside {
+    position: static !important;
   }
 
   .page-main {
