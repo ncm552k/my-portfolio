@@ -6,6 +6,8 @@ export const contact = {
   phone: '0966 845 468',
   linkedin: 'https://www.linkedin.com/in/ncm552k',
   github: 'https://github.com/ncm552k',
+  availability: 'Available for new projects',
+  timezone: 'Asia/Ho_Chi_Minh',
 };
 
 export type SkillItem = { name: string; icon?: string; emoji?: string };
