@@ -1,2 +1,0 @@
-# Subagent-Driven Development Progress
-
