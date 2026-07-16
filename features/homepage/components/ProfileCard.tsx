@@ -52,7 +52,8 @@ export default function ProfileCard() {
     <aside
       style={{
         position: 'sticky',
-        top: '40px',
+        top: '50%',
+        transform: 'translateY(-50%)',
         alignSelf: 'start',
         display: 'flex',
         flexDirection: 'column',
@@ -166,11 +167,9 @@ export default function ProfileCard() {
 
         <div
           className="mono"
-          style={{ textAlign: 'center', fontSize: '13px', color: 'var(--text-soft)', lineHeight: 1.7 }}
+          style={{ textAlign: 'center', fontSize: '12px', color: 'var(--text-dim)', lineHeight: 1.7 }}
         >
-          <a href={`mailto:${contact.email}`}>{contact.email}</a>
-          <br />
-          <span style={{ color: 'var(--text-dim)', fontSize: '12px' }}>Based in {contact.location}</span>
+          Based in {contact.location}
         </div>
 
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
