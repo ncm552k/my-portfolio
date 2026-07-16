@@ -3,7 +3,7 @@
 import type { CSSProperties } from 'react';
 
 import Image from 'next/image';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import { skills } from '@/data/resume';
 
@@ -71,7 +71,6 @@ export default function TechStack() {
   const pinRef = useRef<HTMLDivElement | null>(null);
   const trackARef = useRef<HTMLDivElement | null>(null);
   const trackBRef = useRef<HTMLDivElement | null>(null);
-  const [pct, setPct] = useState(0);
 
   useEffect(() => {
     const pinwrap = pinRef.current;
@@ -96,7 +95,6 @@ export default function TechStack() {
       let p = dist > 0 ? -rect.top / dist : 0;
 
       p = Math.max(0, Math.min(1, p));
-      setPct(Math.round(p * 100));
 
       [
         { track: trackARef.current, dir: 1 },
@@ -139,7 +137,7 @@ export default function TechStack() {
 
   return (
     <section id="stack">
-      <div ref={pinRef} style={{ position: 'relative', height: '240vh' }}>
+      <div ref={pinRef} style={{ position: 'relative', height: '140vh' }}>
         <div
           style={{
             position: 'sticky',
@@ -151,25 +149,20 @@ export default function TechStack() {
             gap: '24px',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div
-              className="mono"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                fontSize: '13px',
-                letterSpacing: '.14em',
-                textTransform: 'uppercase',
-                color: 'var(--text-faint)',
-              }}
-            >
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)' }} />
-              Tech Stack
-            </div>
-            <div className="mono" style={{ fontSize: '12px', color: 'var(--text-dim)' }}>
-              keep scrolling {pct}%
-            </div>
+          <div
+            className="mono"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              fontSize: '13px',
+              letterSpacing: '.14em',
+              textTransform: 'uppercase',
+              color: 'var(--text-faint)',
+            }}
+          >
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)' }} />
+            Tech Stack
           </div>
           <h2
             style={{
