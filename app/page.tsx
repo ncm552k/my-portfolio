@@ -10,7 +10,7 @@ import {
 
 export default function Home() {
   return (
-    <div style={{ position: 'relative', overflowX: 'hidden' }}>
+    <div style={{ position: 'relative', overflowX: 'clip' }}>
       <SectionRail />
       <div className="page-grid">
         <ProfileCard />
