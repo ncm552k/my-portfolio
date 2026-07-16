@@ -3,104 +3,44 @@ import { projects } from '@/data/resume';
 
 export default function Projects() {
   return (
-    <section id="projects" style={{ scrollMarginTop: '48px' }}>
+    <section id="projects" className="scroll-mt-12">
       <Reveal>
-        <div
-          className="mono"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '10px',
-            fontSize: '13px',
-            letterSpacing: '.14em',
-            textTransform: 'uppercase',
-            color: 'var(--text-faint)',
-            marginBottom: '44px',
-          }}
-        >
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)' }} />
+        <div className="mono mb-11 inline-flex items-center gap-2.5 text-[13px] uppercase tracking-[0.14em] text-[var(--text-faint)]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
           Projects
         </div>
       </Reveal>
 
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="flex flex-col">
         {projects.map((p, i) => (
           <Reveal as="article" key={p.title}>
             <div
-              style={{
-                padding: '32px 0',
-                borderTop: '1px solid rgba(255, 255, 255, 0.09)',
-                borderBottom: i === projects.length - 1 ? '1px solid rgba(255, 255, 255, 0.09)' : undefined,
-              }}
+              className={`border-t border-[rgba(255,255,255,0.09)] py-8 ${i === projects.length - 1 ? 'border-b' : ''}`}
             >
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'baseline',
-                  gap: '20px',
-                  flexWrap: 'wrap',
-                }}
-              >
-                <h3 style={{ margin: 0, fontSize: '28px', fontWeight: 600, letterSpacing: '-.01em' }}>{p.title}</h3>
-                <span className="mono" style={{ fontSize: '13px', color: 'var(--accent)' }}>
-                  {p.meta}
-                </span>
+              <div className="flex flex-wrap items-baseline justify-between gap-5">
+                <h3 className="m-0 text-[28px] font-semibold tracking-[-0.01em]">{p.title}</h3>
+                <span className="mono text-[13px] text-[var(--accent)]">{p.meta}</span>
               </div>
-              <p
-                style={{
-                  margin: '16px 0 0',
-                  fontSize: '15px',
-                  lineHeight: 1.75,
-                  color: 'var(--text-muted)',
-                  maxWidth: '640px',
-                }}
-              >
-                {p.description}
-              </p>
+              <p className="mt-4 max-w-[640px] text-[15px] leading-[1.75] text-[var(--text-muted)]">{p.description}</p>
               {p.url ? (
                 <a
                   href={p.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mono"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginTop: '18px',
-                    fontSize: '13px',
-                  }}
+                  className="mono mt-[18px] inline-flex items-center gap-2 text-[13px]"
                 >
                   {p.urlLabel} ↗
                 </a>
               ) : (
-                <span
-                  className="mono"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginTop: '18px',
-                    fontSize: '13px',
-                    color: 'var(--text-dim)',
-                  }}
-                >
+                <span className="mono mt-[18px] inline-flex items-center gap-2 text-[13px] text-[var(--text-dim)]">
                   Private — case study on request
                 </span>
               )}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px', marginTop: '18px' }}>
+              <div className="mt-[18px] flex flex-wrap gap-[7px]">
                 {p.tech.map((t) => (
                   <span
                     key={t}
-                    className="mono"
-                    style={{
-                      fontSize: '11.5px',
-                      padding: '4px 11px',
-                      borderRadius: '99px',
-                      background: 'rgba(245, 165, 36, 0.1)',
-                      color: 'var(--accent)',
-                    }}
+                    className="mono rounded-full bg-[rgba(245,165,36,0.1)] px-[11px] py-1 text-[11.5px] text-[var(--accent)]"
                   >
                     {t}
                   </span>

@@ -109,23 +109,6 @@ textarea::placeholder {
   fill: currentColor;
 }
 
-.page-grid {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 48px 84px 60px 56px;
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 72px;
-  align-items: start;
-}
-
-.page-main {
-  display: flex;
-  flex-direction: column;
-  gap: 130px;
-  min-width: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -140,25 +123,8 @@ textarea::placeholder {
   }
 }
 
-@media (max-width: 1024px) {
-  .page-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 32px 24px 48px;
-  }
-}
-
 @media (max-width: 640px) {
   [data-rail] {
     display: none !important;
-  }
-
-  .page-grid aside {
-    position: static !important;
-    transform: none !important;
-  }
-
-  .page-main {
-    gap: 90px;
   }
 }
