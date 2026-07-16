@@ -1,18 +1,27 @@
-import { Contact, Education, Experience, Header, Hero, Projects, Skills } from '@/features/homepage';
+import {
+  Contact,
+  ExperienceEducation,
+  Introduction,
+  ProfileCard,
+  Projects,
+  SectionRail,
+  TechStack,
+} from '@/features/homepage';
 
 export default function Home() {
   return (
-    <>
-      <Header />
-      <main className="wrap">
-        <Hero />
-        <Skills />
-        <Experience />
-        <Education />
-        <Projects />
-        <Contact />
-      </main>
-      <footer>© 2026 Nguyen Cong Minh — built with Next.js, TypeScript &amp; Three.js.</footer>
-    </>
+    <div style={{ position: 'relative', overflowX: 'hidden' }}>
+      <SectionRail />
+      <div className="page-grid">
+        <ProfileCard />
+        <main className="page-main">
+          <Introduction />
+          <ExperienceEducation />
+          <TechStack />
+          <Projects />
+          <Contact />
+        </main>
+      </div>
+    </div>
   );
 }

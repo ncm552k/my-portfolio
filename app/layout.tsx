@@ -4,24 +4,18 @@ import type { ReactNode } from 'react';
 import './tailwind.css';
 import './globals.scss';
 
-import { IBM_Plex_Mono, IBM_Plex_Sans, Sora } from 'next/font/google';
+import { JetBrains_Mono, Space_Grotesk } from 'next/font/google';
 
-const sora = Sora({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
-  variable: '--font-sora',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-space-grotesk',
 });
 
-const plexSans = IBM_Plex_Sans({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
-  variable: '--font-plex-sans',
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-plex-mono',
+  variable: '--font-jetbrains-mono',
 });
 
 export const metadata: Metadata = {
@@ -33,7 +27,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${sora.variable} ${plexSans.variable} ${plexMono.variable}`}>{children}</body>
+      <body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>{children}</body>
     </html>
   );
 }
