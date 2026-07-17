@@ -20,10 +20,12 @@
 ### Task 1: Sticky profile behavior
 
 **Files:**
+
 - Modify: `app/page.tsx`
 - Modify: `app/globals.scss`
 
 **Interfaces:**
+
 - Consumes: existing `ProfileCard` inline `position: sticky; top: 40px`.
 - Produces: wrapper using `overflowX: 'clip'`, and sticky override moved to `max-width: 640px`.
 
