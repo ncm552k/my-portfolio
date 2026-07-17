@@ -33,6 +33,7 @@ Single-page personal portfolio. Next.js 15 App Router + TypeScript + React 19. `
 **Lint/format** — ESLint flat config is in `eslint.config.mjs`, adapted from `ncm552k/my-source-base`; Next 15's legacy `next/core-web-vitals` config is loaded through `FlatCompat`. Prettier config is in `.prettierrc`; imports are sorted by `eslint-plugin-simple-import-sort`.
 
 **Client components** (marked `'use client'`):
+
 - `features/homepage/components/ProfileCard.tsx` — fixed/centered desktop profile card with live Hanoi clock; static in normal flow below desktop.
 - `features/homepage/components/SectionRail.tsx` — fixed right rail with section scrollspy.
 - `features/homepage/components/ExperienceEducation.tsx` — merged experience/education section with experience accordion state.

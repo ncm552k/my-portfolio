@@ -1,5 +1,6 @@
 'use client';
 
+import { ArrowRight, Plus } from 'lucide-react';
 import { useState } from 'react';
 
 import { education, experience } from '@/data/resume';
@@ -36,23 +37,33 @@ export default function ExperienceEducation() {
                   <div className="mono mt-1.5 text-[13px] text-[var(--text-faint)]">{job.company}</div>
                 </div>
                 <div className="mono text-sm text-[var(--accent)]">{job.period}</div>
-                <span
+                <Plus
                   aria-hidden="true"
-                  className={`text-lg text-[var(--text-faint)] transition-transform ${isOpen ? 'rotate-45' : ''}`}
-                >
-                  +
-                </span>
+                  size={20}
+                  strokeWidth={2.25}
+                  className={`text-[var(--text-faint)] transition-transform ${isOpen ? 'rotate-45' : ''}`}
+                />
               </button>
-              {isOpen && (
-                <ul className="m-0 list-none pb-[26px]">
-                  {job.bullets.map((b) => (
-                    <li key={b} className="relative mb-2.5 pl-5 text-[15px] leading-[1.7] text-[var(--text-muted)]">
-                      <span className="mono absolute left-0 text-[var(--accent)]">→</span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <div
+                className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                  isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                }`}
+              >
+                <div className="min-h-0 overflow-hidden">
+                  <ul className="m-0 list-none pb-[26px]">
+                    {job.bullets.map((b) => (
+                      <li key={b} className="relative mb-2.5 pl-6 text-[15px] leading-[1.7] text-[var(--text-muted)]">
+                        <ArrowRight
+                          size={16}
+                          strokeWidth={2.25}
+                          className="absolute left-0 top-[6px] text-[var(--accent)]"
+                        />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           );
         })}

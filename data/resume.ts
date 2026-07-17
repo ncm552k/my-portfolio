@@ -1,13 +1,14 @@
 export const contact = {
   name: 'Nguyen Cong Minh',
-  role: 'Front-End Developer',
+  role: 'Software Engineer',
   location: 'Hanoi, Vietnam',
   email: 'ncm552k@gmail.com',
   phone: '0966 845 468',
   linkedin: 'https://www.linkedin.com/in/ncm552k',
   github: 'https://github.com/ncm552k',
-  availability: 'Available for new projects',
+  availability: 'Open for new opportunities',
   timezone: 'Asia/Ho_Chi_Minh',
+  resume: '/resume/NguyenCongMinh_SE.pdf',
 };
 
 export type SkillItem = { name: string; icon?: string; emoji?: string };
@@ -23,13 +24,15 @@ export const skills: SkillRow[] = [
       { name: 'CSS', icon: 'css' },
       { name: 'React', icon: 'react' },
       { name: 'Next.js', icon: 'nextdotjs' },
-      { name: 'Vue.js (basic)', icon: 'vuedotjs' },
+      { name: 'Vue.js', icon: 'vuedotjs' },
+      { name: 'Node.js', icon: 'nodedotjs' },
+      { name: 'NestJS', icon: 'nestjs' },
     ],
   },
   {
     category: 'State & Reactive',
     items: [
-      { name: 'Redux (Thunk, Saga)', icon: 'redux' },
+      { name: 'Redux', icon: 'redux' },
       { name: 'Zustand', emoji: '🐻' },
       { name: 'TanStack Query', icon: 'reactquery' },
       { name: 'SWR', icon: 'swr' },
@@ -52,6 +55,10 @@ export const skills: SkillRow[] = [
     items: [
       { name: 'MySQL', icon: 'mysql' },
       { name: 'PostgreSQL', icon: 'postgresql' },
+      { name: 'MongoDB', icon: 'mongodb' },
+      { name: 'Prisma', icon: 'prisma' },
+      { name: 'TypeORM', icon: 'typeorm' },
+      { name: 'Redis', icon: 'redis' },
       { name: 'Socket.IO', icon: 'socketdotio' },
       { name: 'SSE', emoji: '⚡' },
     ],
@@ -85,7 +92,7 @@ export type Experience = {
 export const experience: Experience[] = [
   {
     company: 'MOR Software',
-    role: 'Front-End Developer',
+    role: 'Front-End Engineer',
     period: 'Mar 2025 — Present',
     bullets: [
       "Migrated CareerViet's recruitment website from a legacy Smarty PHP stack to Next.js, leveraging SSR and static optimization to deliver a 50% speed improvement.",
@@ -95,16 +102,16 @@ export const experience: Experience[] = [
   },
   {
     company: 'AIT Corporation',
-    role: 'Front-End Developer',
+    role: 'Front-End Engineer',
     period: 'Jul 2024 — Feb 2025',
     bullets: [
       'Built a Next.js furniture e-commerce platform (Nick Scali Australia) with a Contentful headless CMS and configurable product options.',
-      'Independently delivered a React-based web application for Viettel Post as the sole front-end developer.',
+      'Independently delivered a React-based web application for Viettel Post as the sole front-end engineer.',
     ],
   },
   {
     company: 'NTQ Solution',
-    role: 'Front-End Developer',
+    role: 'Front-End Engineer',
     period: 'Feb 2023 — Jun 2024',
     bullets: [
       'Contributed to front-end UI and UI logic for a financial-domain web application using HTML/CSS, TypeScript, and Next.js.',
@@ -133,7 +140,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     title: 'CareerViet Recruitment Platform',
-    meta: 'MOR Software · Team of 20 · Mar 2025 — Present',
+    meta: 'Mar 2025 — Present',
     url: 'https://careerviet.vn',
     urlLabel: 'careerviet.vn',
     description:
@@ -158,7 +165,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Viettel Post Staff Evaluation',
-    meta: 'AIT Corporation · Team of 4 · Nov 2024 — Feb 2025',
+    meta: 'Nov 2024 — Feb 2025',
     description: 'Web application for evaluating employees based on performance and corporate policy compliance.',
     bullets: [
       'Created the code base and shared component library for consistency and efficiency across the application.',
@@ -170,7 +177,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Nick Scali Australia',
-    meta: 'AIT Corporation · Team of 6 · Jul 2024 — Nov 2024',
+    meta: 'Jul 2024 — Nov 2024',
     url: 'http://nickscali.com.au',
     urlLabel: 'nickscali.com.au',
     description:
@@ -185,7 +192,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Pronexus Fund Document System',
-    meta: 'NTQ Solution · Team of 40 · May 2023 — Jun 2024',
+    meta: 'May 2023 — Jun 2024',
     description:
       'Web application for managing and authoring financial report documents, modernizing an existing .NET Framework application.',
     bullets: [
@@ -198,10 +205,11 @@ export const projects: Project[] = [
   },
   {
     title: '247 Blinds E-commerce',
-    meta: 'NTQ Solution · Team of 6 · Feb 2023 — Apr 2023',
+    meta: 'Feb 2023 — Apr 2023',
     url: 'http://247blinds.co.uk',
     urlLabel: '247blinds.co.uk',
-    description: 'Applied a full redesign to a UK e-commerce website built on Magento.',
+    description:
+      'Delivered a complete redesign of a UK-based e-commerce website built on Magento, modernizing the visual experience, improving usability across desktop and mobile devices, and creating a cleaner, more consistent interface throughout the customer journey.',
     bullets: [
       'Collaborated with Magento developers to implement pixel-accurate UI aligned with design specifications.',
       'Implemented responsive design for seamless functionality across devices.',

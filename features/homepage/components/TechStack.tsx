@@ -1,9 +1,13 @@
 'use client';
 
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useEffect, useMemo, useRef } from 'react';
 
 import { skills } from '@/data/resume';
+
+gsap.registerPlugin(ScrollTrigger);
 
 type Tile = { name: string; icon?: string; emoji?: string };
 
@@ -44,58 +48,46 @@ export default function TechStack() {
   const trackBRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const pinwrap = pinRef.current;
+    const overflowOf = (track: HTMLDivElement | null) => {
+      const mask = track?.parentElement;
 
-    if (!pinwrap) return;
+      if (!track || !mask) return 0;
 
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      pinwrap.style.height = 'auto';
-      const pin = pinwrap.firstElementChild as HTMLElement | null;
+      return Math.max(0, track.scrollWidth - mask.clientWidth);
+    };
 
-      if (pin) {
-        pin.style.position = 'static';
-        pin.style.height = 'auto';
-      }
+    // gsap.matchMedia scopes animations per media query and auto-reverts them
+    // (and any pinning) on cleanup / when the query stops matching.
+    const mm = gsap.matchMedia();
 
-      return;
-    }
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const trackA = trackARef.current;
+      const trackB = trackBRef.current;
 
-    const update = () => {
-      const rect = pinwrap.getBoundingClientRect();
-      const dist = pinwrap.offsetHeight - window.innerHeight;
-      let p = dist > 0 ? -rect.top / dist : 0;
-
-      p = Math.max(0, Math.min(1, p));
-
-      [
-        { track: trackARef.current, dir: 1 },
-        { track: trackBRef.current, dir: -1 },
-      ].forEach(({ track, dir }) => {
-        if (!track) return;
-        const mask = track.parentElement;
-
-        if (!mask) return;
-        const overflow = Math.max(0, track.scrollWidth - mask.clientWidth);
-        const x = dir > 0 ? -overflow * p : -overflow * (1 - p);
-
-        track.style.transform = `translateX(${x}px)`;
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: pinRef.current,
+          start: 'top top',
+          // Longer scroll distance = each wheel tick advances the carousel less.
+          end: '+=200%',
+          pin: true,
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
       });
-    };
 
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update, { passive: true });
+      // trackA slides left as progress goes 0 -> 1; trackB starts shifted and slides back.
+      tl.fromTo(trackA, { x: 0 }, { x: () => -overflowOf(trackA), ease: 'none' }, 0);
+      tl.fromTo(trackB, { x: () => -overflowOf(trackB) }, { x: 0, ease: 'none' }, 0);
+    });
 
-    return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
+    return () => mm.revert();
   }, []);
 
   return (
     <section id="stack">
-      <div ref={pinRef} className="relative h-[140vh]">
-        <div className="sticky top-0 flex h-screen flex-col justify-center gap-6">
+      <div ref={pinRef} className="relative">
+        <div className="flex h-screen flex-col justify-center gap-6">
           <div className="mono inline-flex items-center gap-2.5 text-[13px] uppercase tracking-[0.14em] text-[var(--text-faint)]">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
             Tech Stack
