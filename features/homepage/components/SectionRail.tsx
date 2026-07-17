@@ -1,13 +1,14 @@
 'use client';
 
+import { Briefcase, FolderGit2, House, Layers, Mail } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const items = [
-  { id: 'introduction', label: 'Introduction', glyph: '⌂' },
-  { id: 'experience', label: 'Education & Experience', glyph: '▤' },
-  { id: 'stack', label: 'Tech Stack', glyph: '◈' },
-  { id: 'projects', label: 'Projects', glyph: '▦' },
-  { id: 'contact', label: 'Contact', glyph: '✉' },
+  { id: 'introduction', label: 'Introduction', Icon: House },
+  { id: 'experience', label: 'Education & Experience', Icon: Briefcase },
+  { id: 'stack', label: 'Tech Stack', Icon: Layers },
+  { id: 'projects', label: 'Projects', Icon: FolderGit2 },
+  { id: 'contact', label: 'Contact', Icon: Mail },
 ];
 
 export default function SectionRail() {
@@ -56,13 +57,13 @@ export default function SectionRail() {
             </span>
             <span
               data-rail-btn
-              className={`flex h-[46px] w-[46px] items-center justify-center rounded-full border text-base backdrop-blur transition-all ${
+              className={`flex h-[46px] w-[46px] items-center justify-center rounded-full border backdrop-blur transition-all ${
                 on
                   ? 'border-[var(--accent)] bg-[var(--accent)] text-[var(--bg)]'
                   : 'border-[var(--line-soft)] bg-[rgba(16,16,19,0.7)] text-[var(--text-soft)]'
               }`}
             >
-              {it.glyph}
+              <it.Icon size={22} strokeWidth={2.25} />
             </span>
           </a>
         );

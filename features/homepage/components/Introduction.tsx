@@ -11,15 +11,16 @@ export default function Introduction() {
       </Reveal>
       <Reveal>
         <h1 className="m-0 text-[56px] font-bold leading-[1.05] tracking-[-0.03em]">
-          Building fast, production-grade web apps,{' '}
-          <span className="text-[var(--accent)]">frontend to full-stack.</span>
+          Building fast, production-grade web apps, <span className="text-[var(--accent)]">from end-to-end.</span>
         </h1>
       </Reveal>
       <Reveal>
         <p className="mt-6 max-w-[620px] text-[17px] leading-[1.75] text-[var(--text-muted)]">
-          I&apos;m a front-end developer with 3+ years shipping responsive, high-performance interfaces with React,
-          Next.js and TypeScript — from a full legacy-PHP-to-Next.js migration to white-label recruitment platforms
-          serving thousands of users. Currently expanding into the backend on the road to full-stack.
+          I&apos;m a Hanoi-based Frontend Developer with over three years of experience specializing in React, Next.js,
+          and TypeScript. I currently build for CareerViet, a leading Vietnamese recruitment platform, at MOR Software,
+          and have previously delivered projects at AIT Corporation and NTQ Solution — including work for Nick Scali
+          (Australia) and Viettel Post. I&apos;m currently expanding into full-stack development, with a focus on clean
+          architecture and end-to-end feature ownership.
         </p>
       </Reveal>
     </section>
