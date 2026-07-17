@@ -11,7 +11,7 @@ export default function Introduction() {
       </Reveal>
       <Reveal>
         <h1 className="m-0 text-[56px] font-bold leading-[1.05] tracking-[-0.03em]">
-          Building fast, production-grade web apps, <span className="text-[var(--accent)]">from end-to-end.</span>
+          Building fast, production-grade web apps, <span className="text-[var(--accent)]">end-to-end.</span>
         </h1>
       </Reveal>
       <Reveal>
