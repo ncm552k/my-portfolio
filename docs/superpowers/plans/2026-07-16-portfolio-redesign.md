@@ -21,6 +21,7 @@
 ## File Structure
 
 **Create:**
+
 - `features/homepage/components/ProfileCard.tsx` (client) — left sticky card + live clock
 - `features/homepage/components/SectionRail.tsx` (client) — fixed right dot-rail + scrollspy
 - `features/homepage/components/Introduction.tsx` (server) — intro section
@@ -30,6 +31,7 @@
 - `components/icon/PhoneIcon.tsx` (server) — inline phone SVG
 
 **Modify:**
+
 - `data/resume.ts` — add `availability`, `timezone` to `contact`
 - `app/layout.tsx` — swap fonts
 - `app/globals.scss` — full rewrite (dark design language)
@@ -41,6 +43,7 @@
 - `package.json` — remove `three` + `@types/three`
 
 **Delete:**
+
 - `features/homepage/components/Hero.tsx`
 - `features/homepage/components/CodingBoy3D.tsx`
 - `features/homepage/components/Header.tsx`
@@ -55,11 +58,13 @@
 Sets up the design tokens, fonts, and data fields everything else depends on. Grouped because none is independently shippable and they share one verification (build still compiles, page still renders with new fonts/colors even before layout changes).
 
 **Files:**
+
 - Modify: `data/resume.ts`
 - Modify: `app/layout.tsx`
 - Modify: `app/globals.scss` (full rewrite)
 
 **Interfaces:**
+
 - Consumes: existing `contact` object in `data/resume.ts`.
 - Produces:
   - `contact.availability: string` (= `'Available for new projects'`)
@@ -108,7 +113,9 @@ const jetbrainsMono = JetBrains_Mono({
 Update `<body>`:
 
 ```tsx
-<body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>{children}</body>
+<body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+  {children}
+</body>
 ```
 
 Leave the `metadata` export unchanged.
@@ -257,10 +264,12 @@ git commit -m "feat: dark theme foundation, fonts, contact meta fields"
 Two tiny inline-SVG icon components the ProfileCard needs. Isolated so ProfileCard (Task 4) can consume them.
 
 **Files:**
+
 - Create: `components/icon/MailIcon.tsx`
 - Create: `components/icon/PhoneIcon.tsx`
 
 **Interfaces:**
+
 - Produces: `MailIcon()` and `PhoneIcon()` — default-free named exports returning `<svg viewBox="0 0 24 24" aria-hidden="true">` with `fill="currentColor"` path(s). Consumed by `ProfileCard.tsx` (Task 4).
 
 - [ ] **Step 1: Create `components/icon/MailIcon.tsx`**
@@ -306,9 +315,11 @@ git commit -m "feat: add Mail and Phone inline icons"
 Fixed right-edge vertical nav with 5 dots, hover labels, and scrollspy active state. Self-contained client component; verified visually once wired into the page (Task 9), but built and lint-clean now.
 
 **Files:**
+
 - Create: `features/homepage/components/SectionRail.tsx`
 
 **Interfaces:**
+
 - Consumes: nothing from `data`. Section ids it links to (must match Tasks 5-8 + Task 4 layout): `introduction`, `experience`, `stack`, `projects`, `contact`.
 - Produces: `export default function SectionRail()`. Rendered once by `app/page.tsx` (Task 9).
 
@@ -444,9 +455,11 @@ git commit -m "feat: add SectionRail dot-nav with scrollspy"
 The left column card: portrait placeholder, availability badge, name/role, email, 4 social dots, "Get in touch" pill, location + live clock.
 
 **Files:**
+
 - Create: `features/homepage/components/ProfileCard.tsx`
 
 **Interfaces:**
+
 - Consumes: `contact` from `data/resume.ts` (incl. `availability`, `timezone` from Task 1); `GitHubIcon`, `LinkedInIcon` from `components/icon/`; `MailIcon`, `PhoneIcon` from Task 2.
 - Produces: `export default function ProfileCard()`. Rendered by `app/page.tsx` (Task 9).
 
@@ -471,7 +484,10 @@ function formatClock(): string {
       timeZone: contact.timezone,
     });
   } catch {
-    return new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    return new Date().toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+    });
   }
 }
 
@@ -487,7 +503,11 @@ const dotStyle: React.CSSProperties = {
   transition: 'all .2s',
 };
 
-const iconSvgStyle: React.CSSProperties = { width: '17px', height: '17px', fill: 'currentColor' };
+const iconSvgStyle: React.CSSProperties = {
+  width: '17px',
+  height: '17px',
+  fill: 'currentColor',
+};
 
 export default function ProfileCard() {
   const [clock, setClock] = useState(formatClock());
@@ -596,7 +616,13 @@ export default function ProfileCard() {
           />
           <div
             className="mono"
-            style={{ position: 'absolute', top: '12px', left: '14px', fontSize: '10px', color: 'var(--text-dim)' }}
+            style={{
+              position: 'absolute',
+              top: '12px',
+              left: '14px',
+              fontSize: '10px',
+              color: 'var(--text-dim)',
+            }}
           >
             portrait.jpg
           </div>
@@ -617,22 +643,54 @@ export default function ProfileCard() {
 
         {/* name + role */}
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '21px', fontWeight: 700, letterSpacing: '-.01em' }}>{contact.name}</div>
-          <div className="mono" style={{ fontSize: '12px', color: 'var(--accent)', marginTop: '4px' }}>
+          <div
+            style={{
+              fontSize: '21px',
+              fontWeight: 700,
+              letterSpacing: '-.01em',
+            }}
+          >
+            {contact.name}
+          </div>
+          <div
+            className="mono"
+            style={{
+              fontSize: '12px',
+              color: 'var(--accent)',
+              marginTop: '4px',
+            }}
+          >
             {contact.role}
           </div>
         </div>
 
         {/* email + location */}
-        <div className="mono" style={{ textAlign: 'center', fontSize: '13px', color: 'var(--text-soft)', lineHeight: 1.7 }}>
+        <div
+          className="mono"
+          style={{
+            textAlign: 'center',
+            fontSize: '13px',
+            color: 'var(--text-soft)',
+            lineHeight: 1.7,
+          }}
+        >
           <a href={`mailto:${contact.email}`}>{contact.email}</a>
           <br />
-          <span style={{ color: 'var(--text-dim)', fontSize: '12px' }}>Based in {contact.location}</span>
+          <span style={{ color: 'var(--text-dim)', fontSize: '12px' }}>
+            Based in {contact.location}
+          </span>
         </div>
 
         {/* 4 social dots */}
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          <a href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" style={dotStyle}>
+          <a
+            href={contact.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            title="GitHub"
+            style={dotStyle}
+          >
             <svg viewBox="0 0 24 24" style={iconSvgStyle}>
               <GitHubIcon />
             </svg>
@@ -649,12 +707,22 @@ export default function ProfileCard() {
               <LinkedInIcon />
             </svg>
           </a>
-          <a href={`mailto:${contact.email}`} aria-label="Email" title="Email" style={dotStyle}>
+          <a
+            href={`mailto:${contact.email}`}
+            aria-label="Email"
+            title="Email"
+            style={dotStyle}
+          >
             <span style={iconSvgStyle}>
               <MailIcon />
             </span>
           </a>
-          <a href={`tel:${contact.phone.replace(/\s+/g, '')}`} aria-label="Phone" title="Phone" style={dotStyle}>
+          <a
+            href={`tel:${contact.phone.replace(/\s+/g, '')}`}
+            aria-label="Phone"
+            title="Phone"
+            style={dotStyle}
+          >
             <span style={iconSvgStyle}>
               <PhoneIcon />
             </span>
@@ -697,7 +765,12 @@ export default function ProfileCard() {
       {/* location + live clock */}
       <div
         className="mono"
-        style={{ fontSize: '12px', color: 'var(--text-dim)', lineHeight: 1.9, padding: '0 6px' }}
+        style={{
+          fontSize: '12px',
+          color: 'var(--text-dim)',
+          lineHeight: 1.9,
+          padding: '0 6px',
+        }}
       >
         {contact.location} · {clock}
       </div>
@@ -776,9 +849,11 @@ git commit -m "feat: add ProfileCard with live clock and social dots"
 Server component: eyebrow, big headline, sub paragraph. No stat cards, no showreel.
 
 **Files:**
+
 - Create: `features/homepage/components/Introduction.tsx`
 
 **Interfaces:**
+
 - Consumes: `Reveal` from `components/modules/Reveal`. (Copy is static UI text adapted from current Hero; no data import required, but may reference `contact.role`/`contact.location` — not required.)
 - Produces: `export default function Introduction()` rendering `<section id="introduction">`.
 
@@ -789,7 +864,10 @@ import Reveal from '@/components/modules/Reveal';
 
 export default function Introduction() {
   return (
-    <section id="introduction" style={{ scrollMarginTop: '48px', paddingTop: '8px' }}>
+    <section
+      id="introduction"
+      style={{ scrollMarginTop: '48px', paddingTop: '8px' }}
+    >
       <Reveal>
         <div
           className="mono"
@@ -804,7 +882,14 @@ export default function Introduction() {
             marginBottom: '28px',
           }}
         >
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)' }} />
+          <span
+            style={{
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              background: 'var(--accent)',
+            }}
+          />
           Introduction
         </div>
       </Reveal>
@@ -819,14 +904,26 @@ export default function Introduction() {
           }}
         >
           Building fast, production-grade web apps,{' '}
-          <span style={{ color: 'var(--accent)' }}>frontend to full-stack.</span>
+          <span style={{ color: 'var(--accent)' }}>
+            frontend to full-stack.
+          </span>
         </h1>
       </Reveal>
       <Reveal>
-        <p style={{ margin: '26px 0 0', fontSize: '17px', lineHeight: 1.75, color: 'var(--text-muted)', maxWidth: '620px' }}>
-          I&apos;m a front-end developer with 3+ years shipping responsive, high-performance interfaces with React,
-          Next.js and TypeScript — from a full legacy-PHP-to-Next.js migration to white-label recruitment platforms
-          serving thousands of users. Currently expanding into the backend on the road to full-stack.
+        <p
+          style={{
+            margin: '26px 0 0',
+            fontSize: '17px',
+            lineHeight: 1.75,
+            color: 'var(--text-muted)',
+            maxWidth: '620px',
+          }}
+        >
+          I&apos;m a front-end developer with 3+ years shipping responsive,
+          high-performance interfaces with React, Next.js and TypeScript — from
+          a full legacy-PHP-to-Next.js migration to white-label recruitment
+          platforms serving thousands of users. Currently expanding into the
+          backend on the road to full-stack.
         </p>
       </Reveal>
     </section>
@@ -853,9 +950,11 @@ git commit -m "feat: add Introduction section"
 Client component: merged section. Experience rows are accordions (expand to reveal bullets); Education is a static row.
 
 **Files:**
+
 - Create: `features/homepage/components/ExperienceEducation.tsx`
 
 **Interfaces:**
+
 - Consumes: `experience` (array of `{ company, role, period, bullets }`) and `education` (`{ school, degree, period }`) from `data/resume.ts`.
 - Produces: `export default function ExperienceEducation()` rendering `<section id="experience">`.
 
@@ -895,7 +994,14 @@ export default function ExperienceEducation() {
   return (
     <section id="experience" style={{ scrollMarginTop: '48px' }}>
       <div className="mono" style={eyebrowStyle}>
-        <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)' }} />
+        <span
+          style={{
+            width: '6px',
+            height: '6px',
+            borderRadius: '50%',
+            background: 'var(--accent)',
+          }}
+        />
         Education &amp; Experience
       </div>
 
@@ -906,7 +1012,10 @@ export default function ExperienceEducation() {
         {experience.map((job, i) => {
           const isOpen = open === i;
           return (
-            <div key={job.company} style={{ borderTop: '1px solid rgba(255,255,255,0.09)' }}>
+            <div
+              key={job.company}
+              style={{ borderTop: '1px solid rgba(255,255,255,0.09)' }}
+            >
               <button
                 type="button"
                 aria-expanded={isOpen}
@@ -927,12 +1036,24 @@ export default function ExperienceEducation() {
                 }}
               >
                 <div>
-                  <div style={{ fontSize: '24px', fontWeight: 600 }}>{job.role}</div>
-                  <div className="mono" style={{ fontSize: '13px', color: 'var(--text-faint)', marginTop: '6px' }}>
+                  <div style={{ fontSize: '24px', fontWeight: 600 }}>
+                    {job.role}
+                  </div>
+                  <div
+                    className="mono"
+                    style={{
+                      fontSize: '13px',
+                      color: 'var(--text-faint)',
+                      marginTop: '6px',
+                    }}
+                  >
                     {job.company}
                   </div>
                 </div>
-                <div className="mono" style={{ fontSize: '14px', color: 'var(--accent)' }}>
+                <div
+                  className="mono"
+                  style={{ fontSize: '14px', color: 'var(--accent)' }}
+                >
                   {job.period}
                 </div>
                 <span
@@ -948,7 +1069,9 @@ export default function ExperienceEducation() {
                 </span>
               </button>
               {isOpen && (
-                <ul style={{ listStyle: 'none', margin: 0, padding: '0 0 26px' }}>
+                <ul
+                  style={{ listStyle: 'none', margin: 0, padding: '0 0 26px' }}
+                >
                   {job.bullets.map((b) => (
                     <li
                       key={b}
@@ -961,7 +1084,14 @@ export default function ExperienceEducation() {
                         lineHeight: 1.7,
                       }}
                     >
-                      <span className="mono" style={{ position: 'absolute', left: 0, color: 'var(--accent)' }}>
+                      <span
+                        className="mono"
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          color: 'var(--accent)',
+                        }}
+                      >
                         →
                       </span>
                       {b}
@@ -990,12 +1120,24 @@ export default function ExperienceEducation() {
         }}
       >
         <div>
-          <div style={{ fontSize: '24px', fontWeight: 600 }}>{education.degree}</div>
-          <div className="mono" style={{ fontSize: '13px', color: 'var(--text-faint)', marginTop: '6px' }}>
+          <div style={{ fontSize: '24px', fontWeight: 600 }}>
+            {education.degree}
+          </div>
+          <div
+            className="mono"
+            style={{
+              fontSize: '13px',
+              color: 'var(--text-faint)',
+              marginTop: '6px',
+            }}
+          >
             {education.school}
           </div>
         </div>
-        <div className="mono" style={{ fontSize: '14px', color: 'var(--accent)' }}>
+        <div
+          className="mono"
+          style={{ fontSize: '14px', color: 'var(--accent)' }}
+        >
           {education.period}
         </div>
       </div>
@@ -1027,9 +1169,11 @@ git commit -m "feat: add merged Experience/Education accordion section"
 Client component: tall pinned section; two horizontal carousels move opposite directions driven by scroll progress. Tech-only skill tiles.
 
 **Files:**
+
 - Create: `features/homepage/components/TechStack.tsx`
 
 **Interfaces:**
+
 - Consumes: `skills` (`{ category, items: { name, icon?, emoji? }[] }[]`) from `data/resume.ts`; `next/image`.
 - Produces: `export default function TechStack()` rendering `<section id="stack">`.
 
@@ -1085,11 +1229,23 @@ function Card({ tile }: { tile: Tile }) {
           style={{ objectFit: 'contain' }}
         />
       ) : (
-        <div style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px' }}>
+        <div
+          style={{
+            width: '44px',
+            height: '44px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '30px',
+          }}
+        >
           {tile.emoji}
         </div>
       )}
-      <span className="mono" style={{ fontSize: '12px', color: 'var(--text-soft)' }}>
+      <span
+        className="mono"
+        style={{ fontSize: '12px', color: 'var(--text-soft)' }}
+      >
         {tile.name}
       </span>
     </div>
@@ -1149,8 +1305,10 @@ export default function TechStack() {
   const maskStyle: React.CSSProperties = {
     position: 'relative',
     overflow: 'hidden',
-    WebkitMaskImage: 'linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)',
-    maskImage: 'linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)',
+    WebkitMaskImage:
+      'linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)',
+    maskImage:
+      'linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)',
   };
 
   const trackStyle: React.CSSProperties = {
@@ -1174,7 +1332,13 @@ export default function TechStack() {
             gap: '24px',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
             <div
               className="mono"
               style={{
@@ -1187,17 +1351,44 @@ export default function TechStack() {
                 color: 'var(--text-faint)',
               }}
             >
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)' }} />
+              <span
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  background: 'var(--accent)',
+                }}
+              />
               Tech Stack
             </div>
-            <div className="mono" style={{ fontSize: '12px', color: 'var(--text-dim)' }}>
+            <div
+              className="mono"
+              style={{ fontSize: '12px', color: 'var(--text-dim)' }}
+            >
               keep scrolling {pct}%
             </div>
           </div>
-          <h2 style={{ margin: 0, fontSize: '40px', lineHeight: 1.1, fontWeight: 700, letterSpacing: '-.03em', maxWidth: '640px' }}>
-            Tools I reach for, <span style={{ color: 'var(--accent)' }}>front to back.</span>
+          <h2
+            style={{
+              margin: 0,
+              fontSize: '40px',
+              lineHeight: 1.1,
+              fontWeight: 700,
+              letterSpacing: '-.03em',
+              maxWidth: '640px',
+            }}
+          >
+            Tools I reach for,{' '}
+            <span style={{ color: 'var(--accent)' }}>front to back.</span>
           </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginTop: '10px' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '18px',
+              marginTop: '10px',
+            }}
+          >
             <div style={maskStyle}>
               <div ref={trackARef} style={trackStyle}>
                 {rowA.map((t) => (
@@ -1243,10 +1434,12 @@ git commit -m "feat: add pinned-scroll TechStack carousels"
 Rewrite both to dark design. Projects = rows (title/year/description/link + chips, no bullets). Contact = heading + paragraph + mailto/social buttons + footer bar, no form.
 
 **Files:**
+
 - Modify (rewrite): `features/homepage/components/Projects.tsx`
 - Modify (rewrite): `features/homepage/components/Contact.tsx`
 
 **Interfaces:**
+
 - Consumes: `projects` (`{ title, meta, url?, urlLabel?, description, bullets, tech }[]`), `contact` from `data/resume.ts`; `Reveal`; `GitHubIcon`, `LinkedInIcon`.
 - Produces: `export default function Projects()` (`<section id="projects">`), `export default function Contact()` (`<section id="contact">`).
 
@@ -1273,7 +1466,14 @@ export default function Projects() {
             marginBottom: '44px',
           }}
         >
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)' }} />
+          <span
+            style={{
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              background: 'var(--accent)',
+            }}
+          />
           Projects
         </div>
       </Reveal>
@@ -1285,16 +1485,47 @@ export default function Projects() {
               style={{
                 padding: '32px 0',
                 borderTop: '1px solid rgba(255,255,255,0.09)',
-                borderBottom: i === projects.length - 1 ? '1px solid rgba(255,255,255,0.09)' : undefined,
+                borderBottom:
+                  i === projects.length - 1
+                    ? '1px solid rgba(255,255,255,0.09)'
+                    : undefined,
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '20px', flexWrap: 'wrap' }}>
-                <h3 style={{ margin: 0, fontSize: '28px', fontWeight: 600, letterSpacing: '-.01em' }}>{p.title}</h3>
-                <span className="mono" style={{ fontSize: '13px', color: 'var(--accent)' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'baseline',
+                  gap: '20px',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <h3
+                  style={{
+                    margin: 0,
+                    fontSize: '28px',
+                    fontWeight: 600,
+                    letterSpacing: '-.01em',
+                  }}
+                >
+                  {p.title}
+                </h3>
+                <span
+                  className="mono"
+                  style={{ fontSize: '13px', color: 'var(--accent)' }}
+                >
                   {p.meta}
                 </span>
               </div>
-              <p style={{ margin: '16px 0 0', fontSize: '15px', lineHeight: 1.75, color: 'var(--text-muted)', maxWidth: '640px' }}>
+              <p
+                style={{
+                  margin: '16px 0 0',
+                  fontSize: '15px',
+                  lineHeight: 1.75,
+                  color: 'var(--text-muted)',
+                  maxWidth: '640px',
+                }}
+              >
                 {p.description}
               </p>
               {p.url ? (
@@ -1303,19 +1534,39 @@ export default function Projects() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mono"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '18px', fontSize: '13px' }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    marginTop: '18px',
+                    fontSize: '13px',
+                  }}
                 >
                   {p.urlLabel} ↗
                 </a>
               ) : (
                 <span
                   className="mono"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '18px', fontSize: '13px', color: 'var(--text-dim)' }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    marginTop: '18px',
+                    fontSize: '13px',
+                    color: 'var(--text-dim)',
+                  }}
                 >
                   Private — case study on request
                 </span>
               )}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px', marginTop: '18px' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '7px',
+                  marginTop: '18px',
+                }}
+              >
                 {p.tech.map((t) => (
                   <span
                     key={t}
@@ -1377,22 +1628,54 @@ export default function Contact() {
             marginBottom: '28px',
           }}
         >
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)' }} />
+          <span
+            style={{
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              background: 'var(--accent)',
+            }}
+          />
           Contact
         </div>
       </Reveal>
       <Reveal>
-        <h2 style={{ margin: '0 0 12px', fontSize: '46px', lineHeight: 1.05, fontWeight: 700, letterSpacing: '-.03em' }}>
-          Let&apos;s build something <span style={{ color: 'var(--accent)' }}>together.</span>
+        <h2
+          style={{
+            margin: '0 0 12px',
+            fontSize: '46px',
+            lineHeight: 1.05,
+            fontWeight: 700,
+            letterSpacing: '-.03em',
+          }}
+        >
+          Let&apos;s build something{' '}
+          <span style={{ color: 'var(--accent)' }}>together.</span>
         </h2>
       </Reveal>
       <Reveal>
-        <p style={{ margin: '0 0 40px', fontSize: '16px', lineHeight: 1.75, color: 'var(--text-muted)', maxWidth: '560px' }}>
-          Open to front-end and full-stack opportunities. If you need someone who cares about Core Web Vitals as much as
-          clean component architecture, let&apos;s talk.
+        <p
+          style={{
+            margin: '0 0 40px',
+            fontSize: '16px',
+            lineHeight: 1.75,
+            color: 'var(--text-muted)',
+            maxWidth: '560px',
+          }}
+        >
+          Open to front-end and full-stack opportunities. If you need someone
+          who cares about Core Web Vitals as much as clean component
+          architecture, let&apos;s talk.
         </p>
       </Reveal>
-      <div style={{ display: 'flex', gap: '14px', alignItems: 'center', flexWrap: 'wrap' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '14px',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}
+      >
         <a
           href={`mailto:${contact.email}`}
           style={{
@@ -1409,10 +1692,26 @@ export default function Contact() {
         >
           {contact.email} ↗
         </a>
-        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" data-social-dot style={iconBtnStyle}>
+        <a
+          href={contact.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          title="LinkedIn"
+          data-social-dot
+          style={iconBtnStyle}
+        >
           <LinkedInIcon />
         </a>
-        <a href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-social-dot style={iconBtnStyle}>
+        <a
+          href={contact.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          title="GitHub"
+          data-social-dot
+          style={iconBtnStyle}
+        >
           <GitHubIcon />
         </a>
       </div>
@@ -1463,12 +1762,14 @@ git commit -m "feat: rewrite Projects and Contact for dark design"
 The integration task: wire everything into the two-column layout, update barrel exports, delete obsolete components, remove the `three` dependency. This is where the whole page first renders end-to-end.
 
 **Files:**
+
 - Modify: `app/page.tsx`
 - Modify: `features/homepage/index.ts`
 - Delete: `features/homepage/components/Hero.tsx`, `CodingBoy3D.tsx`, `Header.tsx`, `Skills.tsx`, `Experience.tsx`, `Education.tsx`
 - Modify: `package.json` (remove `three`, `@types/three`)
 
 **Interfaces:**
+
 - Consumes: all components from Tasks 3-8.
 - Produces: final rendered homepage.
 
@@ -1487,7 +1788,15 @@ export { default as TechStack } from './components/TechStack';
 - [ ] **Step 2: Rewrite `app/page.tsx`**
 
 ```tsx
-import { Contact, ExperienceEducation, Introduction, ProfileCard, Projects, SectionRail, TechStack } from '@/features/homepage';
+import {
+  Contact,
+  ExperienceEducation,
+  Introduction,
+  ProfileCard,
+  Projects,
+  SectionRail,
+  TechStack,
+} from '@/features/homepage';
 
 export default function Home() {
   return (
@@ -1505,7 +1814,14 @@ export default function Home() {
         }}
       >
         <ProfileCard />
-        <main style={{ display: 'flex', flexDirection: 'column', gap: '130px', minWidth: 0 }}>
+        <main
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '130px',
+            minWidth: 0,
+          }}
+        >
           <Introduction />
           <ExperienceEducation />
           <TechStack />
@@ -1547,6 +1863,7 @@ Expected: PASS. No import errors for deleted components (nothing references them
 - [ ] **Step 6: Manual visual verification**
 
 Run: `npm run dev`, open http://localhost:3000. Confirm:
+
 - Dark two-column layout; left card sticky on scroll.
 - Right dot-rail visible; active dot follows scroll (scrollspy).
 - Live clock renders in card footer (Hanoi time).
@@ -1572,10 +1889,12 @@ git commit -m "feat: compose dark two-column homepage, remove three and legacy c
 Add mobile breakpoints (single column, hide/adjust rail) and final visual reconciliation against the source design.
 
 **Files:**
+
 - Modify: `app/globals.scss` (append responsive rules + helper classes)
 - Modify: `app/page.tsx` (apply a wrapper class for responsive grid) — OR use a CSS class instead of inline grid for the outer layout so media queries can override it.
 
 **Interfaces:**
+
 - Consumes: existing layout from Task 9.
 - Produces: responsive homepage.
 
@@ -1586,9 +1905,7 @@ In `app/page.tsx`, replace the inline-styled grid `<div>` with `className="page-
 ```tsx
 <div className="page-grid">
   <ProfileCard />
-  <main className="page-main">
-    ...
-  </main>
+  <main className="page-main">...</main>
 </div>
 ```
 

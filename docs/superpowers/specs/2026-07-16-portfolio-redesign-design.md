@@ -41,7 +41,9 @@ Responsive: below ~900px collapse to single column; rail may hide on small scree
 All under `features/homepage/components/` unless noted. Exported via `features/homepage/index.ts`.
 
 ### `ProfileCard.tsx` (client — live clock)
+
 Left sticky card. Contents:
+
 - Portrait placeholder: diagonal-stripe box, radial glow, `portrait.jpg` label, initials/name overlay.
 - Availability badge: pulsing green dot + `contact.availability`.
 - Name (`contact.name`), role (`contact.role`).
@@ -52,26 +54,34 @@ Left sticky card. Contents:
 - Clock: `setInterval` updating every ~20s, formatted `en-US` `hour:'numeric', minute:'2-digit'`, `timeZone: contact.timezone`. Guard with try/catch fallback. Clear interval on unmount.
 
 ### `SectionRail.tsx` (client)
+
 Fixed right-edge vertical nav, 5 anchor items (`#introduction`, `#experience`, `#stack`, `#projects`, `#contact`), each a circular button with a hover-revealed label. Scrollspy via `IntersectionObserver` (`rootMargin: '-45% 0px -45% 0px'`) toggles active styling (amber fill) on the button matching the section in view.
 
 ### `Introduction.tsx` (server)
+
 `id="introduction"`. Eyebrow ("Introduction" with amber dot), big `h1` (accent span), sub paragraph. Content adapted from current Hero copy. No stat cards, no showreel. Wrap blocks in `Reveal`.
 
 ### `ExperienceEducation.tsx` (client — accordion)
+
 `id="experience"`. "Education & Experience" eyebrow. Two groups:
+
 - **Experience** sub-label, then accordion rows from `experience[]`. Collapsed row: role, company, period. Expanded: bullets (`bullets[]`). Local `useState` for open index (allow multiple open or single — single-open acceptable). Accessible: `<button>` trigger, `aria-expanded`, keyboard-operable, respects reduced-motion for expand animation.
 - **Education** sub-label, then a static row from `education` (school, degree, period). No accordion (no bullets in data).
 
 ### `TechStack.tsx` (client — pinned scroll)
+
 `id="stack"`. Pinned section: tall `data-pinwrap` (~240vh) with a `position: sticky` inner pinned viewport. Two horizontal carousel tracks moving in opposite directions driven by scroll progress `p` (0→1) computed from the pinwrap's `getBoundingClientRect`. "keep scrolling N%" indicator. Edge mask gradients.
+
 - Data: flatten `skills[].items`, exclude the two spoken-language categories ("Languages" spoken row — the `🇻🇳`/`🇬🇧` items). Split remaining items across 2 rows. Icon items → `next/image` from `https://cdn.simpleicons.org/${icon}` (host already whitelisted). Emoji items → emoji tile.
 - Reduced motion: unpin (height auto, static inner), no transform.
 - Scroll/resize listeners `passive`, removed on unmount.
 
 ### `Projects.tsx` (server — rewrite)
+
 `id="projects"`. "Projects" eyebrow. Rows from `projects[]`: title (`h3`), period (from `meta` or year), description, link (`url`/`urlLabel`, external `<a target="_blank">`) or "Private — case study on request" when no url, and tech chips (`tech[]`). Bullets not rendered. Wrap rows in `Reveal`.
 
 ### `Contact.tsx` (server — rewrite)
+
 `id="contact"`. "Contact" eyebrow, heading, paragraph. Existing action buttons: mailto primary + LinkedIn/GitHub icon buttons (keep current `Contact` behavior, restyled). Footer bar: `© 2026 Nguyen Cong Minh` + "Back to top". No form.
 
 ## Data changes — `data/resume.ts`
